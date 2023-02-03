@@ -1,4 +1,4 @@
-# paper-similar-particle-collision-for-the-job-shop-problem
+# paper-similar-particle-collision-for-the-job-shop-scheduling-problem
 preparation of the revised English version of the paper for publication in a journal.
 
 The Similar Particle Collision heuritic will be applied in the future for the development of problem solvers previously modeled and solved with LINGO. For this reason we are rewriting and publishing in a journal the paper in which this heuristic was first published.
