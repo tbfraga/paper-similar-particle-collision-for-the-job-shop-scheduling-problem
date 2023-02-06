@@ -1,19 +1,17 @@
-%%%%%%%%%%%%%%%%%%%%%%% file template.tex %%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% (2023) Fraga & Silva Neto.tex %%%%%%%%%%%%%%%%%%%
 %
-% This is a template file for the global option of the SVJour class
+% Article in preparation by Fraga (2023).
 %
-% Copy it to a new file with a new name and use it as the basis
-% for your article
+% Please cite this paper as an work in progress.
+% Respect the license presented in the README.me file.
 %
 %%%%%%%%%%%%%%%%%%%%%%%% Springer-Verlag %%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % First comes an example EPS file -- just ignore it and
 % proceed on the \documentclass line
 \begin{filecontents*}{example.eps}
-%!PS-Adobe-3.0 EPSF-3.0
-%%BoundingBox: 19 19 221 221
-%%CreationDate: Mon Sep 29 1997
-%%Creator: programmed by hand (JK)
+%%CreationDate: Mon Fev 06 2023
+%%Creator: Tatiana Balbi Fraga
 %%EndComments
 gsave
 newpath
@@ -42,6 +40,54 @@ grestore
 % Remove any % below to load the required packages
 %\usepackage{latexsym}
 \usepackage{graphics}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+
+\tikzstyle{none} = [rectangle, 
+minimum width=0cm, 
+minimum height=0cm,
+text centered]
+
+\tikzstyle{operation} = [rectangle, 
+minimum width=3cm, 
+minimum height=1cm,
+text centered, 
+draw=black, 
+fill=black!20]
+
+\tikzstyle{finalOperation} = [rectangle, rounded corners, text width=2.5 cm,
+minimum width=3cm, 
+minimum height=1cm,
+text badly centered, 
+draw=black, 
+fill=black!30]
+
+\tikzstyle{result} = [rectangle, rounded corners, 
+minimum width=3cm, 
+minimum height=1cm,
+text centered, 
+draw=black, 
+fill=black!30]
+
+\tikzstyle{question} = [ellipse, text width=3cm,
+minimum width=3cm, 
+minimum height=1cm,
+text centered, 
+draw=black, 
+fill=black!10]
+
+\tikzstyle{answer} = [diamond, text width=1cm,
+minimum width=1cm, 
+minimum height=1cm,
+text centered, 
+draw=black, 
+fill=black!40]
+
+\tikzstyle{line} = [thick,-,>=stealth]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+
 % etc
 %
 % Insert the name of "your" journal with the command below:
@@ -92,9 +138,57 @@ Than inform what subject is discussed in this paper and highlight the innovative
 \section{Similar Particle Collision heuristic}
 \label{sec:SPC}
 
-In Similar Particle Collision heuristic (Fig. xx) the functions, Disturbance() and Exploit() are respectively replaced by operators of Disturbance and Local Exploration. As Disturbance operators, whose purpose is to take the algorithm to new search spaces, we sugest mutation operators used in Genetic Algorithms, such as the operators M1 to M10 presented by Lian et al. (2006). Alternatively, if the Similar Particle Collision algorithm is applied simultaneously to all individuals of an initial population, we sugest crossover operators used in Genetic Algorithms, applied on pairs of solutions, such as the operators C1 to C4 also presented by Lian et al. (2006). In the case of Local Exploration operators, whose purpose is to explore the surroundings of a given solution, we suggest the various local search algorithms built based on heuristics such as Simulated Annealing, Genetic Algorithms, Particle Collision and Tabu Search.
+In Similar Particle Collision heuristic (Fig. \ref{fig:PCH}) the functions, Disturbance() and Exploit() are respectively replaced by operators of Disturbance and Local Exploration. As Disturbance operators, whose purpose is to take the algorithm to new search spaces, we sugest mutation operators used in Genetic Algorithms, such as the operators M1 to M10 presented by Lian et al. (2006). Alternatively, if the Similar Particle Collision algorithm is applied simultaneously to all individuals of an initial population, we sugest crossover operators used in Genetic Algorithms, applied on pairs of solutions, such as the operators C1 to C4 also presented by Lian et al. (2006). In the case of Local Exploration operators, whose purpose is to explore the surroundings of a given solution, we suggest the various local search algorithms built based on heuristics such as Simulated Annealing, Genetic Algorithms, Particle Collision and Tabu Search. \\
 
-Include figure.
+\begin{figure}
+\begin{tikzpicture}[node distance=2cm]
+\node (random) [operation] {random generator};
+\node (inSol) [result, below of=random] {initial solution};
+\node (perturbation) [operation, below of=inSol] {perturbation};
+\node (newSol) [result, below of=perturbation] {new solution};
+\node (q1) [question, below of=newSol, yshift=-0.5cm] {is the solution found better than the previous one ?};
+\node (a11) [answer, below of=q1, yshift=-0.7cm] {no};
+\node (met) [operation, right of=a11, xshift= 1.5 cm] {metropolis criterion};
+\node (q2) [question, right of=met, xshift= 2.5 cm] {solution accepted ?};
+\node (a21) [answer, above of=q2, xshift=-1.5 cm, yshift= 0.7cm] {no};
+\node (a22) [answer, above of=q2, xshift= 1.5 cm, yshift= 0.7cm] {yes};
+\node (newRandom) [operation, above of=a22] {random generator};
+\node (a12) [answer, right of=q1, xshift= 1.5 cm] {yes};
+\node (lcExp) [operation, above of=a12] {local exploration};
+\node (newNewSol) [result, above of=lcExp, xshift= 2.7 cm] {new solution};
+\node (q3) [question, above of=newNewSol] {is stopping criterion satisfied ?};
+\node (a31) [answer, above of=q3, xshift=-1.5 cm, yshift= 0.3 cm] {no};
+\node (a311) [none, left of=a31] {};
+\node (a32) [answer, above of=q3, xshift= 1.5 cm, yshift= 0.3 cm] {yes};
+\node (stop) [finalOperation, right of=a32, xshift= 1.5 cm] {best solution found so far};
+
+
+\draw [arrow] (random) -- (inSol);
+\draw [arrow] (inSol) -- (perturbation);
+\draw [arrow] (perturbation) -- (newSol);
+\draw [arrow] (newSol) -- (q1);
+\draw [arrow] (q1) -- (a11);
+\draw [arrow] (a11) -- (met);
+\draw [arrow] (met) -- (q2);
+\draw [arrow] (q2) -- (a21);
+\draw [arrow] (a21) -- (lcExp);
+\draw [arrow] (q2) -- (a22);
+\draw [arrow] (a22) -- (newRandom);
+\draw [arrow] (q1) -- (a12);
+\draw [arrow] (a12) -- (lcExp);
+\draw [arrow] (lcExp) -- (newNewSol);
+\draw [arrow] (newRandom) -- (newNewSol);
+\draw [arrow] (newNewSol) -- (q3);
+\draw [arrow] (q3.north) -- (a31.south);
+\draw [line] (a31) -- (a311.center);
+\draw [arrow] (a311.center) |- (perturbation.east);
+\draw [arrow] (q3) -- (a32);
+\draw [arrow] (a32) -- (stop);
+\end{tikzpicture}
+\caption{Particle Collision Heuristic.}
+\label{fig:PCH}  
+\end{figure}
+
 
 \section{Similar Particle Multicollision algorithm with Exploration by Tabu Search}
 \label{sec:SPCETS}
