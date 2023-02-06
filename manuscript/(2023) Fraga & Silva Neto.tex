@@ -45,20 +45,20 @@ grestore
 % etc
 %
 % Insert the name of "your" journal with the command below:
-\journalname{myjournal}
+\journalname{Brazilian Journal of Systems Analysis, Modeling and Optimization}
 %
 \begin{document}
 %
-\title{Insert your title here}
-\subtitle{Do you have a subtitle?\\ If so, write it here}
-\author{First author\inst{1} \and Second author\inst{2}% etc
+\title{Similar Particle Collision for the Job Shop Scheduling Problem}
+%\subtitle{Do you have a subtitle?\\ If so, write it here}
+\author{Tatiana Balbi Fraga\inst{1} \and Antonio Jose da Silva Neto\inst{2}% etc
 % \thanks is optional - remove next line if not needed
 \thanks{\emph{Present address:} Insert the address here if needed}%
 }                     % Do not remove
 %
 \offprints{}          % Insert a name or remove this line
 %
-\institute{Insert the first address here \and the second here}
+\institute{Centro Acadêmico do Agreste / Universidade Federal de Pernambuco \and Instituto Politécno do Rio de Janeiro / Universidade Estadual do Rio de Janeiro}
 %
 \date{Received: date / Revised version: date}
 % The correct dates will be entered by the editor
@@ -66,19 +66,50 @@ grestore
 \maketitle
 %
 \begin{abstract}
-Insert your abstract here.
+In this paper we present the Similar Particle Collision heuristic (SPC) and the Similar Particle Multicollision algorithm with Exploration by Tabu Search, specially developed to solve the Job Shop Scheduling Problem. Although there is a wide range of heuristics and algorithms developed to solve this famous problem, the SPC has an interesting characteristic, since its application is not very sensitive to the adjustment of the parameters used. Another important characteristic is that the presented heuristic allows the successful hybridization of different algorithms mixing aspects of local and global exploration. As we can see, the results are as good as the best results presented in the literature and the method attenuates the different results found by adjusting the parameters, leading to a more robust search.
 \end{abstract}
 %
 \section{Introduction}
 \label{intro}
-Your text comes here. Separate text sections with
-\section{Section title}
-\label{sec:1}
+
+Talk about heuristics for combinatorial optimizatiom problem and hibridization.
+
+\subsection{Job Shop Scheduling Problem}
+\label{sec:JSSP}
+
+Present the Job Shop Scheduling problem. 
+Lecture on the algorithms applied to solve the problem and in particular on hybrid algorithms.
+
+
+\subsection{Particle Collision method}
+\label{sec:PC}
+
+Present the Sacco's Particle Collision method.
+
+
+Than inform what subject is discussed in this paper and highlight the innovative aspects of the work
+
+\section{Similar Particle Collision heuristic}
+\label{sec:SPC}
+
+In Similar Particle Collision heuristic (Fig. xx) the functions, Disturbance() and Exploit() are respectively replaced by operators of Disturbance and Local Exploration. As Disturbance operators, whose purpose is to take the algorithm to new search spaces, we sugest mutation operators used in Genetic Algorithms, such as the operators M1 to M10 presented by Lian et al. (2006). Alternatively, if the Similar Particle Collision algorithm is applied simultaneously to all individuals of an initial population, we sugest crossover operators used in Genetic Algorithms, applied on pairs of solutions, such as the operators C1 to C4 also presented by Lian et al. (2006). In the case of Local Exploration operators, whose purpose is to explore the surroundings of a given solution, we suggest the various local search algorithms built based on heuristics such as Simulated Annealing, Genetic Algorithms, Particle Collision and Tabu Search.
+
+Include figure.
+
+\section{Similar Particle Multicollision algorithm with Exploration by Tabu Search}
+\label{sec:SPCETS}
+
+Include explanation about the algorithm
 and \cite{RefJ}
-\subsection{Subsection title}
-\label{sec:2}
-as required. Don't forget to give each section
-and subsection a unique label (see Sect.~\ref{sec:1}).
+
+\section{Tests and results}
+\label{sec:results}
+
+~\ref{sec:1}.
+
+\section{Conclusions and future work}
+\label{sec:conclusions}
+
 %
 % For one-column wide figures use
 \begin{figure}
