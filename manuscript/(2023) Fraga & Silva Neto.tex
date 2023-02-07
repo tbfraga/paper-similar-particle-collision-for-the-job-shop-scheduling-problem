@@ -54,35 +54,35 @@ minimum width=3cm,
 minimum height=1cm,
 text centered, 
 draw=black, 
-fill=black!20]
+fill=black!15]
 
 \tikzstyle{finalOperation} = [rectangle, rounded corners, text width=2.5 cm,
 minimum width=3cm, 
 minimum height=1cm,
 text badly centered, 
 draw=black, 
-fill=black!30]
+fill=black!25]
 
 \tikzstyle{result} = [rectangle, rounded corners, 
 minimum width=3cm, 
 minimum height=1cm,
 text centered, 
 draw=black, 
-fill=black!30]
+fill=black!25]
 
 \tikzstyle{question} = [ellipse, text width=3cm,
 minimum width=3cm, 
 minimum height=1cm,
 text centered, 
 draw=black, 
-fill=black!10]
+fill=black!05]
 
 \tikzstyle{answer} = [diamond, text width=1cm,
 minimum width=1cm, 
 minimum height=1cm,
 text centered, 
 draw=black, 
-fill=black!40]
+fill=black!35]
 
 \tikzstyle{line} = [thick,-,>=stealth]
 \tikzstyle{arrow} = [thick,->,>=stealth]
@@ -148,19 +148,21 @@ In Similar Particle Collision heuristic (Fig. \ref{fig:PCH}) the functions, Dist
 \node (newSol) [result, below of=perturbation] {new solution};
 \node (q1) [question, below of=newSol, yshift=-0.5cm] {is the solution found better than the previous one ?};
 \node (a11) [answer, below of=q1, yshift=-0.7cm] {no};
-\node (met) [operation, right of=a11, xshift= 1.5 cm] {metropolis criterion};
-\node (q2) [question, right of=met, xshift= 2.5 cm] {solution accepted ?};
+\node (met) [operation, right of=a11, xshift= 0.7 cm] {metropolis criterion};
+\node (q2) [question, right of=met, xshift= 2.3 cm] {solution accepted ?};
+\node (q21) [none, above of=q2, yshift=-0.7cm] {};
 \node (a21) [answer, above of=q2, xshift=-1.5 cm, yshift= 0.7cm] {no};
-\node (a22) [answer, above of=q2, xshift= 1.5 cm, yshift= 0.7cm] {yes};
+\node (a22) [answer, above of=q2, xshift= 1.0 cm, yshift= 0.7cm] {yes};
 \node (newRandom) [operation, above of=a22] {random generator};
 \node (a12) [answer, right of=q1, xshift= 1.5 cm] {yes};
 \node (lcExp) [operation, above of=a12] {local exploration};
-\node (newNewSol) [result, above of=lcExp, xshift= 2.7 cm] {new solution};
+\node (newNewSol) [result, above of=lcExp, xshift= 2.7 cm, yshift= -0.5 cm] {new solution};
 \node (q3) [question, above of=newNewSol] {is stopping criterion satisfied ?};
+\node (q31) [none, above of=q3, yshift=-0.8cm] {};
 \node (a31) [answer, above of=q3, xshift=-1.5 cm, yshift= 0.3 cm] {no};
 \node (a311) [none, left of=a31] {};
 \node (a32) [answer, above of=q3, xshift= 1.5 cm, yshift= 0.3 cm] {yes};
-\node (stop) [finalOperation, right of=a32, xshift= 1.5 cm] {best solution found so far};
+\node (stop) [finalOperation, above of=a32] {best solution found so far};
 
 
 \draw [arrow] (random) -- (inSol);
@@ -170,19 +172,21 @@ In Similar Particle Collision heuristic (Fig. \ref{fig:PCH}) the functions, Dist
 \draw [arrow] (q1) -- (a11);
 \draw [arrow] (a11) -- (met);
 \draw [arrow] (met) -- (q2);
-\draw [arrow] (q2) -- (a21);
-\draw [arrow] (a21) -- (lcExp);
-\draw [arrow] (q2) -- (a22);
+\draw [line] (q2.north) -- (q21.center);
+\draw [arrow] (q21.center) -| (a21.south);
+\draw [arrow] (a21.north) |- (lcExp);
+\draw [arrow] (q21.center) -| (a22.south);
 \draw [arrow] (a22) -- (newRandom);
 \draw [arrow] (q1) -- (a12);
 \draw [arrow] (a12) -- (lcExp);
-\draw [arrow] (lcExp) -- (newNewSol);
-\draw [arrow] (newRandom) -- (newNewSol);
+\draw [arrow] (lcExp.north) |- (newNewSol);
+\draw [arrow] (newRandom.north) |- (newNewSol);
 \draw [arrow] (newNewSol) -- (q3);
-\draw [arrow] (q3.north) -- (a31.south);
+\draw [arrow] (q31.center) -| (a31.south);
 \draw [line] (a31) -- (a311.center);
 \draw [arrow] (a311.center) |- (perturbation.east);
-\draw [arrow] (q3) -- (a32);
+\draw [line] (q3) -- (q31.center);
+\draw [arrow] (q31.center) -| (a32);
 \draw [arrow] (a32) -- (stop);
 \end{tikzpicture}
 \caption{Particle Collision Heuristic.}
