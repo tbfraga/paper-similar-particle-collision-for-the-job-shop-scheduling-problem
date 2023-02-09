@@ -40,7 +40,7 @@ grestore
 % Remove any % below to load the required packages
 %\usepackage{latexsym}
 \usepackage{graphics}
-
+\usepackage[]{algorithm2e}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
 
@@ -130,7 +130,50 @@ Lecture on the algorithms applied to solve the problem and in particular on hybr
 \subsection{Particle Collision method}
 \label{sec:PC}
 
-By observing the physics of the collision process between nuclear particles inside a nuclear power reactor it is possible to verify that, among the colliding particles, those that reach the nuclei, i.e. regions of high fitness, are absorbed and explore the surroundings while that those that reach regions of low fitness can be absorbed or spread to other regions according to some probability function. Analyzing these interactions, Sacco and Oliveira (2005) observed that the succession of absorption and scattering events allowed the movement of particles to promote an exploration of the complete search space while a deeper exploration of the most promising areas. Thus, based on this observation, the authors proposed a new algorithm for search which they named the Particles Collision Algorithm. In this algorithm initially a solution is chosen and reserved as current solution. Then, this current solution is perturbed through a Perturbation() function, generating a new solution. If the new solution is “better” than the current solution (according to some previously defined criteria), the last solution is replaced by the first and on this a local search procedure defined by an Exploration() function is applied. If the new solution is “worse” than the current solution, then a function Scatter() is applied, where a probability function is used to define whether the current solution will be explored or replaced by a random solution. Note that this algorithm has a similar structure to Simulated Annealing except for the fact that the algorithm can be taken to new search spaces not directly related to the initial solution. Additionally, it is not necessary to define an initial temperature. Fig. 1 presents a pseudo-code for the PCA, as proposed by Sacco et al. (2006) for solving continuous maximization problems. Note that the function of probability is defined by the criterion of Metropolis (METROPOLIS et al., 1953). 
+By observing the physics of the collision process between nuclear particles inside a nuclear power reactor it is possible to verify that, among the colliding particles, those that reach the nuclei, i.e. regions of high fitness, are absorbed and explore the surroundings while that those that reach regions of low fitness can be absorbed or spread to other regions according to some probability function. Analyzing these interactions, Sacco and Oliveira (2005) observed that the succession of absorption and scattering events allowed the movement of particles to promote an exploration of the complete search space while a deeper exploration of the most promising areas. Thus, based on this observation, the authors proposed a new algorithm for search which they named the Particles Collision Algorithm. In this algorithm initially a solution is chosen and reserved as current solution. Then, this current solution is perturbed through a perturbation() function, generating a new solution. If the new solution is “better” than the current solution (according to some previously defined criteria - evalFunction()), the last solution is replaced by the first and on this a local search procedure defined by an exploitation() function is applied. If the new solution is “worse” than the current solution, then a function scattering() is applied, where a probability function is used to define whether the current solution will be explored or replaced by a random solution. Note that this algorithm has a similar structure to Simulated Annealing except for the fact that the algorithm can be taken to new search spaces not directly related to the initial solution. Additionally, it is not necessary to define an initial temperature. Alg. \ref{alg:PCA}  presents a pseudo-code for the PCA, as proposed by Sacco et al. (2006) for solving continuous maximization problems. Note that the function of probability is defined by the criterion of Metropolis (METROPOLIS et al., 1953). 
+
+
+\begin{algorithm}
+\SetKwData{initialSolution}{initialSolution}
+\SetKwData{newSolution}{newSolution}
+\SetKwData{betterSolution}{betterSolution}
+\SetKwData{NIte}{NIte}
+\SetKwData{Left}{left}\SetKwData{This}{this}\SetKwData{Up}{up}
+\SetKwData{fitnessCurrent}{fitnessCurrent}
+\SetKwData{fitnessNew}{fitnessNew}
+\SetKwData{fitnessBetter}{fitnessBetter}
+\SetKwData{currentSolution}{currentSolution}
+\SetKwFunction{Union}{Union}
+\SetKwFunction{FindCompress}{FindCompress}
+\SetKwFunction{pertubation}{pertubation}
+\SetKwFunction{evalFitness}{evalFitness}
+\SetKwFunction{exploitation}{exploitation}
+\SetKwFunction{scattering}{scattering}
+
+
+\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+\Input{\initialSolution, \evalFitness{}}
+\Output{\betterSolution, \fitnessBetter}
+\BlankLine
+\betterSolution $\leftarrow$ \currentSolution $\leftarrow$ \initialSolution\;
+\fitnessBetter $\leftarrow$ \fitnessCurrent $\leftarrow$ \evalFitness{\currentSolution}\;
+
+\For{$n\leftarrow 1$ \KwTo \NIte}{
+
+\newSolution $\leftarrow$ \pertubation{\currentSolution}\;
+\fitnessNew $\leftarrow$ \evalFitness{\newSolution}\;
+
+\eIf{\fitnessNew $>$ \fitnessCurrent}{\label{nccomp}
+	\currentSolution $\leftarrow$ \exploitation{\newSolution}\;}
+{
+	\currentSolution $\leftarrow$ \scattering{\newSolution}\; }\label{lelse} 
+\fitnessCurrent $\leftarrow$ \evalFitness{\currentSolution}\;
+\If{\fitnessCurrent $>$ \fitnessBetter}{\label{bncomp}
+		\betterSolution $\leftarrow$ \currentSolution\; 
+		\fitnessBetter $\leftarrow$ \fitnessCurrent \;}
+}
+\caption{Particle Collison Algorithm}\label{alg:PCA}
+\end{algorithm}\DecMargin{1em} 
 
 
 
